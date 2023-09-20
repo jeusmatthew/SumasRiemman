@@ -90,7 +90,7 @@ function resolverParticionRegular() {
   let b = parseFloat(document.getElementById("b").value);
   let n = parseInt(document.getElementById("n").value);
 
-  if (!a || !b || !n) { 
+  if (!a || !b || !n) {
     alert("Los valores de a, b y n deben ser números");
     return;
   }
@@ -106,24 +106,36 @@ function resolverParticionRegular() {
 
   let resultado = 0;
 
+  const out = document.getElementById("out");
+
+  let newP;
+
   puntoMuestra.forEach((element) => {
     if (element.checked) {
       switch (element.value) {
         case "derecho":
           resultado = sumasRiemannDerecha(a, b, n);
+          newP = document.creat
           break;
         case "izquierdo":
           resultado = sumasRiemannIzquierda(a, b, n);
+          newP = document.createElement("p").setAttribute("id", "outIzquierda");
           break;
         case "medio":
           resultado = sumasRiemannMedio(a, b, n);
+          newP = document.createElement("p").setAttribute("id", "outMedio");
           break;
         case "azar":
           resultado = sumasRiemannPuntoAzar(a, b, n);
+          newP = document.createElement("p").setAttribute("id", "outAzar");
           break;
       }
     }
   });
+
+  // TODO: HACER Q SE CREE UN NUEVO NODO Y SE VAYA AÑADIENDO AL DIV DE SALIDA DE FORMA LATEXIANA
+
+  out.appendChild(newP);
 
   MathJax.typesetPromise()
     .then(() => {
