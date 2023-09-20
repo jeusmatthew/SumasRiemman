@@ -1,3 +1,5 @@
+const LONGITUD_NOMBRE = 22;
+
 function sumasRiemannDerecha(a = 0, b = 0, n = 0) {
   let deltaX = (b - a) / n;
   let c_i = 0;
@@ -51,12 +53,7 @@ function sumasRiemannPuntoAzar(a = 0, b = 0, n = 0) {
 }
 
 function f(x = 0) {
-  let name = "";
-  name = document.getElementById("name").value;
-
-  let nameLength = name.length;
-
-  return Math.pow(x, nameLength) + 1;
+  return Math.pow(x, LONGITUD_NOMBRE);
 }
 
 function resolver() {
@@ -90,58 +87,52 @@ function resolverParticionRegular() {
   let b = parseFloat(document.getElementById("b").value);
   let n = parseInt(document.getElementById("n").value);
 
-  if (!a || !b || !n) {
+  if (isNaN(a) || isNaN(b) || isNaN(n) ) {
     alert("Los valores de a, b y n deben ser números");
     return;
   }
-
+  
   if (a > b || a == b) {
     alert("El valor de a debe ser menor que el valor de b");
     return;
   }
 
-  let p = document.getElementById("name").value.length;
-
-  let puntoMuestra = document.getElementsByName("sample-point");
+  let chbTipoMuestras = document.getElementsByName("sample-point");
 
   let resultado = 0;
 
-  const out = document.getElementById("out");
+  // const out = document.getElementById("out");
 
-  let newP;
+  let format = `$$ \\int_${a}^${b} x^{${LONGITUD_NOMBRE}}+1 = `;
 
-  puntoMuestra.forEach((element) => {
+  chbTipoMuestras.forEach((element) => {
     if (element.checked) {
       switch (element.value) {
         case "derecho":
           resultado = sumasRiemannDerecha(a, b, n);
-          newP = document.creat
+          imprimirTeX(
+            document.getElementById("outDerecha"),
+            format.concat(`${resultado}$$`)
+          );
           break;
         case "izquierdo":
           resultado = sumasRiemannIzquierda(a, b, n);
-          newP = document.createElement("p").setAttribute("id", "outIzquierda");
           break;
         case "medio":
           resultado = sumasRiemannMedio(a, b, n);
-          newP = document.createElement("p").setAttribute("id", "outMedio");
           break;
         case "azar":
           resultado = sumasRiemannPuntoAzar(a, b, n);
-          newP = document.createElement("p").setAttribute("id", "outAzar");
           break;
       }
     }
   });
+}
 
-  // TODO: HACER Q SE CREE UN NUEVO NODO Y SE VAYA AÑADIENDO AL DIV DE SALIDA DE FORMA LATEXIANA
-
-  out.appendChild(newP);
-
+function imprimirTeX(element, str = "") {
   MathJax.typesetPromise()
     .then(() => {
-      document.getElementById(
-        "out"
-      ).innerHTML = `$$ \\int_${a}^${b} x^{${p}}+1 = ${resultado} $$`;
+      element.innerHTML = str;
       MathJax.typesetPromise();
     })
     .catch((err) => console.log(err.message));
