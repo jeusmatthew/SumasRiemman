@@ -68,18 +68,18 @@
         </div>
     </div>
 
-    <button class="btn btn-primary" onclick="resolver()">Imprimeme</button>
+    <button class="btn btn-primary" onclick="resolver()">Imprimir Resultado</button>
 
-    <div class="output">
+    <p class="h6 mx-auto align-middle">Resultado</p>
+    <div class="output" id="output">
         <!-- Imprime en latex -->
-        <p class="h6 mx-auto align-middle">Resultado</p>
         <p id="outDerecha">
             <!-- $$\int_{a}^{b} f(x) dx = \lim_{n \to \infty} \sum_{i=1}^{n} f(c_i) \Delta x$$ -->
         </p>
 
-        <p class="outIzquierda"></p>
-        <p class="outMedio"></p>
-        <p class="outAzar"></p>
+        <p id="outIzquierda"></p>
+        <p id="outMedio"></p>
+        <p id="outAzar"></p>
 
     </div>
 
