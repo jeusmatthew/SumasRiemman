@@ -1,15 +1,104 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Calculadora Sumas de Riemann</title>
+
+    <script src="sumasRiemann.js"></script>
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
 </head>
+
 <body>
-    <label for="name">Nombre:</label>
-    <input type="text" name="name" id="name">
+
+    <div class="m-2">
+        <!-- <label for="name">Ingrese su nombre:</label>
+        <br>
+        <input type="text" name="name" id="name"> -->
+
+        <div class="input-group mb-3">
+            <span class="input-group-text" id="basic-addon2">Nombre</span>
+            <input type="text" name="name" id="name" class="form-control" value="Armando casas" aria-label="Nombre" aria-describedby="basic-addon2">
+        </div>
+
+        <div class="rangos my-2">
+            <div class="input-group">
+                <span class="input-group-text">Valor de a, b, n</span>
+                <input type="number" aria-label="a" class="form-control" name="range" id="a" value="1">
+                <input type="number" aria-label="b" class="form-control" name="range" id="b" value="2">
+                <input type="number" aria-label="n" class="form-control" name="range" id="n" value="4">
+            </div>
+        </div>
+
+        <div class="partition">
+            <p class="h6">Particion</p>
+            <div class="form-check">
+                <label class="form-check-label" for="p1">Regular</label>
+                <input class="form-check-input" type="radio" name="partition-type" id="p1" value="regular" checked>
+            </div>
+
+            <div class="form-check particion ">
+                <label class="form-check-label" for="p2">Irregular</label>
+                <input class="form-check-input" type="radio" name="partition-type" id="p2" value="irregular">
+            </div>
+        </div>
+
+        <div class="elegir-puntos-muestra">
+            <p class="h6">Puntos muestra</p>
+            <div class="form-check">
+                <input class="form-check-input" type="checkbox" value="derecho" id="derecho" name="sample-point" checked>
+                <label class="form-check-label" for="derecho">
+                    Extremos derechos
+                </label>
+            </div>
+
+            <div class="form-check">
+                <input class="form-check-input" type="checkbox" value="izquierdo" id="izquierdo" name="sample-point">
+                <label class="form-check-label" for="izquierdo">
+                    Extremos izquierdos
+                </label>
+            </div>
+            <div class="form-check">
+                <input class="form-check-input" type="checkbox" value="medio" id="medio" name="sample-point">
+                <label class="form-check-label" for="medio">
+                    Puntos medios
+                </label>
+            </div>
+            <div class="form-check">
+                <input class="form-check-input" type="checkbox" value="azar" id="azar" name="sample-point">
+                <label class="form-check-label" for="azar">
+                    Al azar
+                </label>
+            </div>
+        </div>
+    </div>
+
+    <button class="btn btn-primary" onclick="resolver()">Imprimeme</button>
+
+    <div class="output">
+        <!-- Imprime en latex -->
+        <p class="h6 mx-auto">Resultado</p>
+        <p id="out">
+            $$\int_{a}^{b} f(x) dx = \lim_{n \to \infty} \sum_{i=1}^{n} f(c_i) \Delta x$$
+        </p>
+    </div>
+
+    <script>
+        function test() {
+            MathJax.typesetPromise().then(() => {
+                document.getElementById("out").innerHTML = `$$ \\int_{${document.getElementById("a").value}} $$`;
+                MathJax.typesetPromise();
+            }).catch((err) => console.log(err.message));
+        }
+    </script>
 
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
+
+
+
 </body>
+
 </html>
